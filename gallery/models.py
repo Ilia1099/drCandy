@@ -1,3 +1,15 @@
 from django.db import models
 
-# Create your models here.
+
+class BakeryTypes(models.Model):
+
+    class Meta:
+        ...
+
+
+class Bakery(models.Model):
+
+    class Meta:
+        ...
+
+
