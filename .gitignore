@@ -1,10 +1,11 @@
 # created by virtualenv automatically
 
 .env
-db.sqlite3
+drCandy_dev_base.sqlite3
 .idea
 __pycache__
 bin
 lib
 pyvenv.cfg
-
+htmlcov/
+.coverage

@@ -2,12 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from drCandy.settings import common
 
 
 def main():
     """Run administrative tasks."""
-    # change drCandy.settings.dev to .prod for production (or set param in config file)
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drCandy.settings.dev')
+    if common.DEBUG:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drCandy.settings.dev')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drCandy.settings.prod')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

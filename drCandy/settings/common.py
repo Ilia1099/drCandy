@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+DEBUG = os.environ.get('DEBUG') == 'True'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -30,7 +36,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'gallery',
-    'customers'
+    'customers',
+    'shopping_cart'
 ]
 
 MIDDLEWARE = [
@@ -102,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 USE_I18N = True
 

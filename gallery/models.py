@@ -1,45 +1,4 @@
-import uuid
-
 from django.db import models
-from customers.models import Customers
-
-
-class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer_id = models.ForeignKey(to=Customers, on_delete=models.SET_NULL, null=True, blank=False)
-    date_of_placement = models.DateTimeField(auto_now_add=True)
-    date_of_delivery = models.DateTimeField(null=True, default=None)
-    date_updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return "order"
-
-    def __repr__(self):
-        return self.__str__()
-
-    class Meta:
-        db_table = 'orders'
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
-        ordering = ["-date_of_placement"]
-
-
-class Cart(models.Model):
-    order_id = models.OneToOneField(to="Order", on_delete=models.CASCADE)
-    bakery_id = models.ManyToManyField(to="Bakery")
-    quantity = models.IntegerField(null=False, default=0)
-
-    def __str__(self):
-        return "cart"
-
-    def __repr__(self):
-        return self.__str__()
-
-    class Meta:
-        db_table = "order_items"
-        verbose_name = 'Order Item'
-        verbose_name_plural = 'Order Items'
-        db_table_comment = "All items within specified order"
 
 
 class BakeryTypes(models.Model):

@@ -14,6 +14,12 @@ class Customers(AbstractBaseUser):
 
     objects = CustomerManager()
 
+    def __str__(self):
+        return f"customer {self.id}"
+
+    def __repr__(self):
+        return self.__str__()
+
     class Meta:
         db_table = 'customers'
         verbose_name = 'Customer'
@@ -25,11 +31,17 @@ class Customers(AbstractBaseUser):
 class CustomerProfile(models.Model):
     customer_id = models.OneToOneField(to="Customers", on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, null=False)
-    second_name = models.CharField(max_length=50, null=False)
+    last_name = models.CharField(max_length=50, null=False)
     profile_img = models.ImageField(upload_to='customer_pictures/', null=True, default=None)
     date_of_birth = models.DateField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=False)
     date_updated = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return f"profile {self.customer_id}"
+
+    def __repr__(self):
+        return self.__str__()
 
     class Meta:
         db_table = 'customer_profile'
@@ -37,9 +49,8 @@ class CustomerProfile(models.Model):
         verbose_name_plural = 'Customer Profiles'
         db_table_comment = "Customers profile with additional data, created when user completes registration."
         ordering = ['pk']
-        unique_together = (('first_name', 'second_name', 'date_of_birth'),)
-        index_together = (('first_name', 'second_name'),)
+        unique_together = (('first_name', 'last_name', 'date_of_birth'),)
+        indexes = [
+            models.Index(fields=['first_name', 'last_name']),
+        ]
 
-# TODO
-# finish logic for custom objects class
-# for reference check: BaseUserManager
