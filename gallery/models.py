@@ -2,6 +2,7 @@ from django.db import models
 
 
 class BakeryTypes(models.Model):
+    """ A model for bakery types instances"""
     bakery_type = models.CharField(max_length=255)
     date_added = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
@@ -20,6 +21,7 @@ class BakeryTypes(models.Model):
 
 
 class Bakery(models.Model):
+    """ A model for bakery instances"""
     bakery_name = models.CharField(max_length=255)
     bakery_type_id = models.ForeignKey(to="BakeryTypes", on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to="bakery_images", null=True, default=None)
@@ -40,6 +42,7 @@ class Bakery(models.Model):
 
 
 class BakeryDescriptions(models.Model):
+    """ A model for descriptions instances"""
     bakery_id = models.OneToOneField(to="Bakery", on_delete=models.CASCADE)
     description = models.TextField(null=False, blank=False, unique=True)
     date_added = models.DateField(auto_now_add=True)
@@ -59,6 +62,7 @@ class BakeryDescriptions(models.Model):
 
 
 class Ingredients(models.Model):
+    """ A model for ingredients instances """
     name = models.CharField(max_length=50, unique=True, null=False, blank=False)
     bakery_id = models.ManyToManyField(to="Bakery")
     description = models.TextField(null=False, blank=False)
@@ -76,7 +80,3 @@ class Ingredients(models.Model):
         verbose_name = 'Ingredient'
         verbose_name_plural = 'Ingredients'
         db_table_comment = "Table with all ingredients"
-
-
-# TODO
-# test all models

@@ -3,6 +3,9 @@ from django.contrib.auth.hashers import make_password
 
 
 class CustomerManager(BaseUserManager):
+    """
+    Custom user model manager for Customers model
+    """
     use_in_migrations = True
 
     def _create_user(self, email, password, mobile_number, **extra_fields):

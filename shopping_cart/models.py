@@ -5,6 +5,7 @@ from gallery.models import Bakery
 
 
 class Order(models.Model):
+    """ A model for order instances each order is associated with a customer """
     order_statuses = [
         ('c', 'Confirmed'), ('d', 'Delivered'), ('p', 'Pending'), ('rcd', 'Received'),
         ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended')
@@ -30,6 +31,7 @@ class Order(models.Model):
 
 
 class Cart(models.Model):
+    """ A model for cart instances, each cart is associated with an order """
     order_id = models.OneToOneField(to="Order", on_delete=models.CASCADE)
     bakery_id = models.ManyToManyField(to=Bakery)
     quantity = models.IntegerField(null=False, default=0)

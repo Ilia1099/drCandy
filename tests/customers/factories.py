@@ -27,7 +27,4 @@ class CustomerProfileFactory(factory.django.DjangoModelFactory):
     )
 
 # TODO
-# finish factories & tests for each app
-# check pytest report index for additional tests
-# use this link for help https://www.youtube.com/watch?v=bIFVweK0hMc&list=PLOLrQ9Pn6cawJ9CbY-o_kQC4GOWfhCFHq&index=23
 # start working on apis
