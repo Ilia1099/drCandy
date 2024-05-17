@@ -7,6 +7,8 @@ class BakeryTypeFactory(factory.django.DjangoModelFactory):
         model = models.BakeryTypes
 
     bakery_type = factory.Faker('text', max_nb_chars=255)
+    depth = 1
+    path = '0001'
 
 
 class BakeryFactory(factory.django.DjangoModelFactory):

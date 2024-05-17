@@ -1,9 +1,10 @@
 from django.db import models
+from treebeard.mp_tree import MP_Node
 
 
-class BakeryTypes(models.Model):
+class BakeryTypes(MP_Node):
     """ A model for bakery types instances"""
-    bakery_type = models.CharField(max_length=255)
+    bakery_type = models.CharField(max_length=255, null=True, blank=True, unique=True, default='')
     date_added = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
 
