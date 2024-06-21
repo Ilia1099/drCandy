@@ -4,7 +4,7 @@ from treebeard.mp_tree import MP_Node
 
 class BakeryTypes(MP_Node):
     """ A model for bakery types instances"""
-    bakery_type = models.CharField(max_length=255, null=True, blank=True, unique=True, default='')
+    bakery_type = models.CharField(max_length=255, db_index=True, null=True, blank=True, unique=True, default='')
     date_added = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
 
@@ -23,7 +23,7 @@ class BakeryTypes(MP_Node):
 
 class Bakery(models.Model):
     """ A model for bakery instances"""
-    bakery_name = models.CharField(max_length=255)
+    bakery_name = models.CharField(max_length=255, db_index=True)
     bakery_type_id = models.ForeignKey(to="BakeryTypes", on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to="bakery_images", null=True, default=None)
     date_added = models.DateField(auto_now_add=True)
@@ -64,7 +64,7 @@ class BakeryDescriptions(models.Model):
 
 class Ingredients(models.Model):
     """ A model for ingredients instances """
-    name = models.CharField(max_length=50, unique=True, null=False, blank=False)
+    name = models.CharField(max_length=50, db_index=True, null=False, blank=False)
     bakery_id = models.ManyToManyField(to="Bakery")
     description = models.TextField(null=False, blank=False)
     date_added = models.DateField(auto_now_add=True)

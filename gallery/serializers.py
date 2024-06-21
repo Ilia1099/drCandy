@@ -25,7 +25,6 @@ class IngredientsSerializer(serializers.ModelSerializer):
 
 class BakerySerializer(serializers.ModelSerializer):
     ingredients = serializers.SerializerMethodField()
-    # ingredients = IngredientsSerializer(many=True)
     description = BakeryDescriptionsSerializer(source='bakerydescriptions')
 
     def get_ingredients(self, obj):
