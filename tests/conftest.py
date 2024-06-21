@@ -1,6 +1,5 @@
 from pytest_factoryboy import register
-
-from .customers.factories import CustomerFactory, CustomerProfileFactory
+from .custom_user.factories import CustomerFactory, CustomerProfileFactory
 from .gallery.factories import BakeryFactory, BakeryTypeFactory, IngredientsFactory, DescriptionFactory
 from .shopping_cart.factories import OrderFactory, CartFactory
 

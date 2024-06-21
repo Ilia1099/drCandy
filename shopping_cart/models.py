@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from customers.models import Customers
+from custom_user.models import User
 from gallery.models import Bakery
 
 
@@ -11,7 +11,7 @@ class Order(models.Model):
         ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended')
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer_id = models.ForeignKey(to=Customers, on_delete=models.SET_NULL, null=True, blank=False)
+    customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
     status = models.CharField(max_length=4, choices=order_statuses, default='rcd')
     date_of_placement = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(null=True, default=None)

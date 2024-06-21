@@ -1,7 +1,7 @@
 from django.views.generic.base import View
-from django.shortcuts import render
+from django.shortcuts import HttpResponse
 
 
 class MainPageView(View):
     def get(self, request):
-        return render(request, 'main_page/main_page.html')
+        return HttpResponse("Main page")

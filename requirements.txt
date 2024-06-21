@@ -16,6 +16,7 @@ jmespath==1.0.1
 packaging==24.0
 pillow==10.3.0
 pluggy==1.4.0
+PyJWT==2.8.0
 pymemcache==4.0.0
 pytest==8.1.1
 pytest-cov==5.0.0

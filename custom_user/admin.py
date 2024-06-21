@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from customers.models import Customers, CustomerProfile
+from custom_user.models import User, CustomerProfile
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    model = Customers
+    model = User
 
 
 class CustomerProfileAdmin(admin.ModelAdmin):
     model = CustomerProfile
 
 
-admin.site.register(Customers, CustomerAdmin)
+admin.site.register(User, CustomerAdmin)
 admin.site.register(CustomerProfile, CustomerProfileAdmin)

@@ -1,6 +1,6 @@
 import factory
 from shopping_cart.models import Cart, Order
-from tests.customers.factories import CustomerFactory
+from tests.custom_user.factories import CustomerFactory
 from tests.gallery.factories import BakeryFactory
 
 
