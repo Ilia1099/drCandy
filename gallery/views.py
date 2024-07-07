@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.generics import mixins
-from .models import Bakery, BakeryDescriptions, BakeryTypes, Ingredients
+from .models import Bakery, BakeryTypes, Ingredients
 from .serializers import BakerySerializer, BakeryTypesSerializer, IngredientsSerializer
 
 
