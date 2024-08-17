@@ -8,11 +8,11 @@ class Order(models.Model):
     """ A model for order instances each order is associated with a customer """
     order_statuses = [
         ('c', 'Confirmed'), ('d', 'Delivered'), ('p', 'Pending'), ('rcd', 'Received'),
-        ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended')
+        ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended'), ('b', 'Basket')
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
-    status = models.CharField(max_length=4, choices=order_statuses, default='rcd')
+    status = models.CharField(max_length=4, choices=order_statuses, default='b')
     date_of_placement = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(null=True, default=None)
     date_updated = models.DateTimeField(auto_now=True)
