@@ -10,7 +10,7 @@ class Order(models.Model):
         ('c', 'Confirmed'), ('d', 'Delivered'), ('p', 'Pending'), ('rcd', 'Received'),
         ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended')
     ]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
     status = models.CharField(max_length=4, choices=order_statuses, default='rcd')
     date_of_placement = models.DateTimeField(auto_now_add=True)
@@ -30,10 +30,10 @@ class Order(models.Model):
         ordering = ["-date_of_placement"]
 
 
-class Cart(models.Model):
+class CartItems(models.Model):
     """ A model for cart instances, each cart is associated with an order """
-    order_id = models.OneToOneField(to="Order", on_delete=models.CASCADE)
-    bakery_id = models.ManyToManyField(to=Bakery)
+    order_id = models.ForeignKey(to="Order", on_delete=models.CASCADE, name='order')
+    bakery_name = models.CharField(max_length=250, blank=False, null=False)
     quantity = models.IntegerField(null=False, default=0)
 
     def __str__(self):
