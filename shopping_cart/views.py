@@ -1,6 +1,6 @@
 import uuid
 
-from .models import Order, Cart
+from .models import Order, CartItems
 from .serializers import OrderSerializer, CartSerializer
 from rest_framework import viewsets
 from rest_framework.generics import mixins
@@ -14,7 +14,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
 class CartViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     lookup_field = 'order_id'
-    queryset = Cart.objects.all()
+    queryset = CartItems.objects.all()
     serializer_class = CartSerializer
 
     def retrieve(self, request, *args, **kwargs):

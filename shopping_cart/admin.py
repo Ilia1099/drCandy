@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Cart
+from .models import Order, CartItems
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -7,9 +7,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 class CartAdmin(admin.ModelAdmin):
-    model = Cart
+    model = CartItems
 
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItems, CartAdmin)
 
