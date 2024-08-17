@@ -7,6 +7,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['id', 'customer_id', 'status', 'date_of_delivery', 'date_of_placement', 'date_updated']
         read_only_fields = ['id', 'status', 'date_of_delivery', 'date_of_placement', 'date_updated']
+        required_fields = ['customer_id']
 
 
 class CartSerializer(serializers.ModelSerializer):
