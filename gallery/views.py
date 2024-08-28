@@ -8,8 +8,14 @@ class BakeryViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
     """A viewset retrieves for reading either a list of Bakery objects or a single Bakery object """
 
     lookup_field = 'id'
-    queryset = Bakery.objects.all()
+    queryset = Bakery.objects.prefetch_related("ingredients_set").all()
     serializer_class = BakerySerializer
+
+    def get_queryset(self):
+        qs = self.queryset
+        if self.kwargs.get('pk'):
+            qs = Bakery.objects.filter(id=self.kwargs["id"])
+        return qs
 
 
 class IngredientViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):

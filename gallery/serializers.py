@@ -37,3 +37,8 @@ class BakerySerializer(serializers.ModelSerializer):
         fields = ['id', 'bakery_name', 'bakery_type_id', 'ingredients', 'description', 'ingredients', 'image',
                   'date_added', 'date_updated']
         read_only_fields = ['id', 'bakery_name', 'bakery_type_id', 'image', 'date_added', 'date_updated']
+
+# TODO
+# rework queries in all views (or serializers) which have related objects
+# test existing endpoints
+# add authentication, authorization
