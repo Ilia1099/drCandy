@@ -13,7 +13,7 @@ class BakeryViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
 
     def get_queryset(self):
         qs = self.queryset
-        if self.kwargs.get('pk'):
+        if self.kwargs.get('id'):
             qs = Bakery.objects.filter(id=self.kwargs["id"])
         return qs
 
