@@ -12,8 +12,8 @@ from rest_framework import viewsets
 from rest_framework.generics import mixins
 
 
-class OrderViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-    lookup_field = 'customer_id'
+class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    lookup_field = 'id'
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
