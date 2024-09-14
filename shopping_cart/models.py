@@ -8,7 +8,8 @@ class Order(models.Model):
     """ A model for order instances each order is associated with a customer """
     order_statuses = [
         ('c', 'Confirmed'), ('d', 'Delivered'), ('p', 'Pending'), ('rcd', 'Received'),
-        ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended'), ('b', 'Basket')
+        ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended'), ('b', 'Basket'), ('prcg', 'Processing'),
+        ('shpd', 'Shipped')
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
@@ -16,6 +17,9 @@ class Order(models.Model):
     date_of_placement = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(null=True, default=None)
     date_updated = models.DateTimeField(auto_now=True)
+    # TODO
+    # write custom validation on fields, checking order_status, if status == 'b' then could be saved
+    # also status field must check permission cos only authorized users should be able to change it (admin)
 
     def __str__(self):
         return f"order_{self.id}"
