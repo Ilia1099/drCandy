@@ -23,7 +23,9 @@ class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         self.perform_create(serializer)
         self._append_items(serializer.data["id"], request.data.get("items", []))
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        response = Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        response.set_cookie(key="order_id", value=serializer.data["id"])
+        return response
 
     def _append_items(self, order_id: uuid.UUID, order_items: List[dict]):
         with transaction.atomic():
