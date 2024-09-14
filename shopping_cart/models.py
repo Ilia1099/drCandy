@@ -9,7 +9,7 @@ class Order(models.Model):
     order_statuses = [
         ('c', 'Confirmed'), ('d', 'Delivered'), ('p', 'Pending'), ('rcd', 'Received'),
         ('r', 'Rejected'), ('a', 'Archived'), ('s', 'Suspended'), ('b', 'Basket'), ('prcg', 'Processing'),
-        ('shpg', 'Shipping')
+        ('shpd', 'Shipped')
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
