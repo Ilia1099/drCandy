@@ -9,11 +9,11 @@ from rest_framework import status
 from .models import Order, CartItems
 from .serializers import OrderSerializer, CartSerializer
 from rest_framework import viewsets
-from rest_framework.generics import mixins
+from rest_framework.generics import mixins, get_object_or_404
 
 
-class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    lookup_field = 'id'
+class OrderViewSet(viewsets.ModelViewSet):
+    lookup_field = 'order_id'
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -27,6 +27,15 @@ class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         response.set_cookie(key="order_id", value=serializer.data["id"])
         return response
 
+    def get_queryset(self):
+        return Order.objects.filter(customer_id=self.kwargs['user_id'])
+
+    def retrieve(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        order = get_object_or_404(queryset, pk=self.kwargs['order_id'])
+        serializer = self.get_serializer(order)
+        return Response(serializer.data)
+
     def _append_items(self, order_id: uuid.UUID, order_items: List[dict]):
         with transaction.atomic():
             try:
@@ -38,3 +47,11 @@ class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                     item.save()
             except ValidationError as e:
                 transaction.rollback()
+
+
+class CartViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = CartSerializer
+
+    def get_queryset(self):
+        order_id = self.kwargs['order_order_id']
+        return CartItems.objects.filter(order_id=order_id)
