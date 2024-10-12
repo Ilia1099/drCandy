@@ -36,7 +36,7 @@ class Order(models.Model):
 
 class CartItems(models.Model):
     """ A model for cart instances, each cart is associated with an order """
-    order_id = models.ForeignKey(to="Order", on_delete=models.CASCADE, name='order')
+    order_id = models.ForeignKey(to="Order", related_name='order_items', on_delete=models.CASCADE, name='order')
     bakery_name = models.CharField(max_length=250, blank=False, null=False)
     quantity = models.IntegerField(null=False, default=0)
 
