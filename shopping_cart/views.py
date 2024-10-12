@@ -38,13 +38,3 @@ class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                     item.save()
             except ValidationError as e:
                 transaction.rollback()
-
-
-class CartViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-    lookup_field = 'order_id'
-    queryset = CartItems.objects.all()
-    serializer_class = CartSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        kwargs['order_id'] = uuid.UUID(kwargs.get('order_id'))
-        return super().retrieve(request, *args, **kwargs)
