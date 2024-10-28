@@ -1,7 +1,8 @@
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from custom_user.model_managers.customers_manager import CustomUserManager
+from custom_user.model_managers.customers_manager import UserManager
 from django.conf import settings
 
 
@@ -21,8 +22,10 @@ class User(AbstractUser):
         max_length=10, blank=True, null=True
     )
 
-    def clean(self):
-        super().clean()
+    objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         if self.is_customer and self.is_superuser:
             raise ValidationError("You can't be a customer and a superuser")
 
