@@ -1,5 +1,5 @@
 import factory
-from shopping_cart.models import Cart, Order
+from shopping_cart.models import CartItems, Order
 from tests.custom_user.factories import CustomerFactory
 from tests.gallery.factories import BakeryFactory
 
@@ -14,7 +14,7 @@ class OrderFactory(factory.django.DjangoModelFactory):
 
 class CartFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Cart
+        model = CartItems
 
     order_id = factory.SubFactory(OrderFactory)
     bakery_id = factory.RelatedFactory(BakeryFactory)
