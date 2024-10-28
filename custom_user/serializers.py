@@ -4,17 +4,21 @@ from .models import User, CustomerProfile
 
 class CustomerSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        instance = User.objects.create_user(**validated_data)
+        return instance
+
     class Meta:
         model = User
         fields = ['mobile_number', 'password', 'email', 'first_name', 'last_name', 'username', 'is_customer']
         read_only_fields = ['id', 'is_active', 'date_joined']
         extra_kwargs = {
-            'password': {'write_only': True, 'required': True},
-            'email': {'required': True},
-            'first_name': {'required': True},
-            'last_name': {'required': True},
-            'username': {'required': True},
-            'is_customer': {'required': True}
+            "password": {"write_only": True, "required": True},
+            "email": {"required": True},
+            "first_name": {"required": True},
+            "last_name": {"required": True},
+            "username": {"required": True},
+            "is_customer": {"required": True}
         }
 
 
