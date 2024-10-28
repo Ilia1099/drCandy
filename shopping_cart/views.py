@@ -1,9 +1,8 @@
 import uuid
-import json
 from typing import List
-
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Order, CartItems
@@ -16,6 +15,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     lookup_field = 'order_id'
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -28,7 +28,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         return response
 
     def get_queryset(self):
-        return Order.objects.filter(customer_id=self.kwargs['user_id'])
+        """return a queryset of all orders belonging to authenticated user only bypassing user_id;
+            superuser can see orders of any user;
+        """
+        if self.request.user.is_superuser:
+            return Order.objects.filter(customer_id=self.kwargs['user_id'])
+        return Order.objects.filter(customer_id=self.request.user.id)
 
     def retrieve(self, request, *args, **kwargs):
         queryset = self.get_queryset()
