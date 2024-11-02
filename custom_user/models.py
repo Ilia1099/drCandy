@@ -30,7 +30,7 @@ class User(AbstractUser):
             raise ValidationError("You can't be a customer and a superuser")
 
     def __str__(self):
-        return f"customer {self.id}"
+        return str(self.id)
 
     def __repr__(self):
         return self.__str__()
@@ -45,7 +45,7 @@ class CustomerProfile(models.Model):
     date_updated = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
-        return f"profile {self.customer_id}"
+        return f"profile of user: {self.customer_id}"
 
     def __repr__(self):
         return self.__str__()
