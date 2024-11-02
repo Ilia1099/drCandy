@@ -7,7 +7,7 @@ from django.conf import settings
 
 def mobile_number_validator(value):
     if len(value) != 10:
-        raise ValidationError("Mobile Number must be 10 digits")
+        raise ValidationError("Mobile Number must be 10 digits long")
 
 
 class User(AbstractUser):
@@ -18,7 +18,8 @@ class User(AbstractUser):
     is_customer = models.BooleanField(default=False)
     mobile_number = models.CharField(
         validators=[mobile_number_validator],
-        max_length=10, blank=True, null=True
+        max_length=10, blank=True, null=True,
+        help_text="Use valid number 10 digits"
     )
 
     objects = UserManager()
@@ -38,8 +39,6 @@ class User(AbstractUser):
 class CustomerProfile(models.Model):
     """ Model which represents extended customer profile if they decide to register """
     customer_id = models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    mobile_number = models.CharField(max_length=10, unique=True, null=True, default=None,
-                                     help_text="Use valid number 10 digits")
     profile_img = models.ImageField(upload_to='customer_pictures/', null=True, default=None)
     date_of_birth = models.DateField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=False)
