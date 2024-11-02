@@ -5,6 +5,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 
 class SessionLogin(APIView):
+    """Apiview which provides login functionality"""
     def post(self, request):
         username = request.data['username']
         password = request.data['password']

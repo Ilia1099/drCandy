@@ -1,4 +1,3 @@
-from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -59,7 +58,3 @@ class CustomerProfile(models.Model):
         db_table_comment = "Customers profile with additional data, created when user completes registration."
         ordering = ['pk']
         unique_together = (('customer_id', 'date_of_birth'),)
-
-
-# TODO
-# finish implement remaining endpoints with permissions

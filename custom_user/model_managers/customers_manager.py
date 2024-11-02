@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 
 class CustomUserManager(UserManager):
     """
-    Custom user model manager for Customers model
+    Custom user model manager
     """
     use_in_migrations = True
 

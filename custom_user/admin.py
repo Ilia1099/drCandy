@@ -4,10 +4,12 @@ from custom_user.models import User, CustomerProfile
 
 
 class CustomerAdmin(admin.ModelAdmin):
+    """this class is under development"""
     model = User
 
 
 class CustomerProfileAdmin(admin.ModelAdmin):
+    """this class is under development"""
     model = CustomerProfile
 
 

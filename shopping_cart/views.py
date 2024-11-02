@@ -12,6 +12,7 @@ from rest_framework.generics import mixins, get_object_or_404
 
 
 class OrderViewSet(viewsets.ModelViewSet):
+    """Viewset which implements CRUD operations for order instance"""
     lookup_field = 'order_id'
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -28,7 +29,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         return response
 
     def get_queryset(self):
-        """return a queryset of all orders belonging to authenticated user only bypassing user_id;
+        """returns a queryset of all orders belonging to the authenticated user only bypassing user_id;
             superuser can see orders of any user;
         """
         if self.request.user.is_superuser:
@@ -42,6 +43,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def _append_items(self, order_id: uuid.UUID, order_items: List[dict]):
+        """Method for adding multiple items to the order"""
         with transaction.atomic():
             try:
                 for item in order_items:
@@ -55,6 +57,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class CartViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Viewset which implements read operations for cart instances"""
     serializer_class = CartSerializer
 
     def get_queryset(self):
