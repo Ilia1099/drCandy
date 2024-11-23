@@ -3,14 +3,13 @@ from .models import User, CustomerProfile
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     def create(self, validated_data):
         instance = User.objects.create_user(**validated_data)
         return instance
 
     class Meta:
         model = User
-        fields = ['mobile_number', 'password', 'email', 'first_name', 'last_name', 'username', 'is_customer']
+        fields = ['id', 'mobile_number', 'password', 'email', 'first_name', 'last_name', 'username', 'is_customer']
         read_only_fields = ['id', 'is_active', 'date_joined']
         extra_kwargs = {
             "password": {"write_only": True, "required": True},
@@ -27,7 +26,7 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
         model = CustomerProfile
         fields = ['customer_id', 'profile_img', 'date_of_birth', 'date_created',
                   'date_updated']
-        read_only_fields = ['customer_id', 'date_created', 'date_updated', 'profile_img',]
+        read_only_fields = ['date_created', 'date_updated']
 
 
 
