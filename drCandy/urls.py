@@ -10,7 +10,3 @@ urlpatterns = [
     path(f'api/v1/', include(api_urls), name='api_v1'),
     path(f'auth/', SessionLogin.as_view(), name='auth'),
 ]
-
-
-# TODO
-# Create viewsets for all endpoints
