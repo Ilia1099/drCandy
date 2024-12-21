@@ -26,8 +26,14 @@ class Bakery(models.Model):
     bakery_name = models.TextField(max_length=255, db_index=True)
     bakery_type_id = models.ForeignKey(to="BakeryType", on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to="bakery_images", null=True, default=None)
+    description = models.TextField(null=True, blank=False, unique=True)
     date_added = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.description:
+            self.description = f"{self.bakery_name}'s description"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.bakery_name
@@ -40,26 +46,6 @@ class Bakery(models.Model):
         verbose_name = 'Bakery'
         verbose_name_plural = 'Bakeries'
         db_table_comment = "Table with all bakeries"
-
-
-class BakeryDescriptions(models.Model):
-    """ A model for descriptions instances"""
-    bakery_id = models.OneToOneField(to="Bakery", on_delete=models.CASCADE)
-    description = models.TextField(null=False, blank=False, unique=True)
-    date_added = models.DateField(auto_now_add=True)
-    date_updated = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return "description"
-
-    def __repr__(self):
-        return self.__str__()
-
-    class Meta:
-        db_table = "bakery_description"
-        verbose_name = 'Bakery Description'
-        verbose_name_plural = 'Bakery Descriptions'
-        db_table_comment = "Table with all bakery descriptions"
 
 
 class Ingredient(models.Model):
