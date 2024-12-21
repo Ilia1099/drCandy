@@ -12,7 +12,7 @@ class Order(models.Model):
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     customer_id = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False)
-    status = models.CharField(max_length=4, choices=order_statuses, default='b')
+    status = models.TextField(max_length=4, choices=order_statuses, default='b')
     date_of_placement = models.DateTimeField(auto_now_add=True)
     date_of_delivery = models.DateTimeField(null=True, default=None)
     date_updated = models.DateTimeField(auto_now=True)
@@ -36,7 +36,7 @@ class Order(models.Model):
 class CartItem(models.Model):
     """ A model for cart instances, each cart is associated with an order """
     order_id = models.ForeignKey(to="Order", related_name='cart_item', on_delete=models.CASCADE, name='order')
-    bakery_name = models.CharField(max_length=250, blank=False, null=False)
+    bakery_name = models.TextField(max_length=255, blank=False, null=False)
     quantity = models.IntegerField(null=False, default=0)
 
     def __str__(self):
