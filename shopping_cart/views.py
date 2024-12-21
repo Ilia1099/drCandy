@@ -5,7 +5,7 @@ from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Order, CartItems
+from .models import Order, CartItem
 from .serializers import OrderSerializer, CartSerializer
 from rest_framework import viewsets
 from rest_framework.generics import mixins, get_object_or_404
@@ -49,7 +49,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                 for item in order_items:
                     data = {'order_id': order_id}
                     data.update(item)
-                    item = CartItems(**data)
+                    item = CartItem(**data)
                     item.clean_fields()
                     item.save()
             except ValidationError as e:
@@ -62,4 +62,4 @@ class CartViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         order_id = self.kwargs['order_order_id']
-        return CartItems.objects.filter(order_id=order_id)
+        return CartItem.objects.filter(order_id=order_id)

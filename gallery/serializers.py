@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Bakery, BakeryTypes, BakeryDescriptions, Ingredients
+from .models import Bakery, BakeryType, BakeryDescriptions, Ingredient
 
 
 class BakeryTypesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BakeryTypes
+        model = BakeryType
         fields = ['id', 'bakery_type', 'date_added', 'date_updated']
         read_only_fields = ['id', 'bakery_type', 'date_added', 'date_updated']
 
@@ -18,7 +18,7 @@ class BakeryDescriptionsSerializer(serializers.ModelSerializer):
 
 class IngredientsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Ingredients
+        model = Ingredient
         fields = ['id', 'name', 'description', 'date_added', 'date_updated']
         read_only_fields = ['id', 'name', 'description', 'date_added', 'date_updated']
 

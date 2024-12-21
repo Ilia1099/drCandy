@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, CartItems
+from .models import Order, CartItem
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CartItems
+        model = CartItem
         fields = ['id', 'order_id', 'bakery_name', 'quantity']
         read_only_fields = ['id',]
         required_fields = ['order_id', 'bakery_name', 'quantity']

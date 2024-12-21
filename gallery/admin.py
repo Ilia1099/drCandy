@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bakery, BakeryDescriptions, BakeryTypes, Ingredients
+from .models import Bakery, BakeryDescriptions, BakeryType, Ingredient
 
 
 class BakeryAdmin(admin.ModelAdmin):
@@ -11,15 +11,15 @@ class BakeryDescriptionsAdmin(admin.ModelAdmin):
 
 
 class BakeryTypesAdmin(admin.ModelAdmin):
-    model = BakeryTypes
+    model = BakeryType
 
 
 class IngredientsAdmin(admin.ModelAdmin):
-    model = Ingredients
+    model = Ingredient
 
 
 admin.site.register(Bakery, BakeryAdmin)
 admin.site.register(BakeryDescriptions, BakeryDescriptionsAdmin)
-admin.site.register(BakeryTypes, BakeryTypesAdmin)
-admin.site.register(Ingredients, IngredientsAdmin)
+admin.site.register(BakeryType, BakeryTypesAdmin)
+admin.site.register(Ingredient, IngredientsAdmin)
 
