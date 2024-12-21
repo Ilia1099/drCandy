@@ -1,13 +1,9 @@
 from django.contrib import admin
-from .models import Bakery, BakeryDescriptions, BakeryType, Ingredient
+from .models import Bakery, BakeryType, Ingredient
 
 
 class BakeryAdmin(admin.ModelAdmin):
     model = Bakery
-
-
-class BakeryDescriptionsAdmin(admin.ModelAdmin):
-    model = BakeryDescriptions
 
 
 class BakeryTypesAdmin(admin.ModelAdmin):
@@ -19,7 +15,6 @@ class IngredientsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Bakery, BakeryAdmin)
-admin.site.register(BakeryDescriptions, BakeryDescriptionsAdmin)
 admin.site.register(BakeryType, BakeryTypesAdmin)
 admin.site.register(Ingredient, IngredientsAdmin)
 

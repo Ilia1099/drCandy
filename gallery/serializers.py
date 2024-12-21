@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Bakery, BakeryType, BakeryDescriptions, Ingredient
+from .models import Bakery, BakeryType, Ingredient
 
 
 class BakeryTypesSerializer(serializers.ModelSerializer):
@@ -7,13 +7,6 @@ class BakeryTypesSerializer(serializers.ModelSerializer):
         model = BakeryType
         fields = ['id', 'bakery_type', 'date_added', 'date_updated']
         read_only_fields = ['id', 'bakery_type', 'date_added', 'date_updated']
-
-
-class BakeryDescriptionsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BakeryDescriptions
-        fields = ['id', 'bakery_id', 'description', 'date_added', 'date_updated']
-        read_only_fields = ['id', 'bakery_id', 'description', 'date_added', 'date_updated']
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
@@ -25,7 +18,6 @@ class IngredientsSerializer(serializers.ModelSerializer):
 
 class BakerySerializer(serializers.ModelSerializer):
     ingredients = serializers.SerializerMethodField()
-    description = BakeryDescriptionsSerializer(source='bakerydescriptions')
 
     def get_ingredients(self, obj):
         ingredients = obj.ingredients_set.all()
