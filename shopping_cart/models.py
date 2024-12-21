@@ -38,6 +38,7 @@ class CartItem(models.Model):
     order_id = models.ForeignKey(to="Order", related_name='cart_item', on_delete=models.CASCADE, name='order')
     bakery_name = models.TextField(max_length=255, blank=False, null=False)
     quantity = models.IntegerField(null=False, default=0)
+    price_per_item = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
 
     def __str__(self):
         return "cart"
