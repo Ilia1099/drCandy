@@ -1,7 +1,6 @@
 import uuid
 from django.db import models
 from custom_user.models import User
-from gallery.models import Bakery
 
 
 class Order(models.Model):
@@ -34,9 +33,9 @@ class Order(models.Model):
         ordering = ["-date_of_placement"]
 
 
-class CartItems(models.Model):
+class CartItem(models.Model):
     """ A model for cart instances, each cart is associated with an order """
-    order_id = models.ForeignKey(to="Order", related_name='order_items', on_delete=models.CASCADE, name='order')
+    order_id = models.ForeignKey(to="Order", related_name='cart_item', on_delete=models.CASCADE, name='order')
     bakery_name = models.CharField(max_length=250, blank=False, null=False)
     quantity = models.IntegerField(null=False, default=0)
 
@@ -47,8 +46,8 @@ class CartItems(models.Model):
         return self.__str__()
 
     class Meta:
-        db_table = "order_items"
-        verbose_name = 'Order Item'
-        verbose_name_plural = 'Order Items'
+        db_table = "cart_item"
+        verbose_name = 'Cart Item'
+        verbose_name_plural = 'Cart Items'
         db_table_comment = "All items within specified order"
 
