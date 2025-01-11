@@ -1,10 +1,12 @@
 from rest_framework import permissions
 
+SAFE_METHODS_FOR_USER_DATA = ("HEAD", "OPTIONS")
 
-class IsAminOrOwner(permissions.BasePermission):
+
+class IsAdminOrOwner(permissions.BasePermission):
     """custom permission to allow only owners of an object or admins to edit it """
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
+        if request.method in SAFE_METHODS_FOR_USER_DATA:
             return True
         if not request.user.is_authenticated:
             return False
