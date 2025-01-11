@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
 
-from .permissions.custom_user_permissions import IsAminOrOwner, IsOwner
+from .permissions.custom_user_permissions import IsAdminOrOwner, IsOwner
 from .serializers import CustomerSerializer, CustomerProfileSerializer
 from .models import CustomerProfile, User
 
@@ -15,12 +15,14 @@ class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_permissions(self):
-        if self.action == "list":
-            permission_classes = [IsAdminUser]
-        elif self.action == "create":
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAminOrOwner]
+        match self.action:
+            case "list":
+                permission_classes = [IsAdminUser]
+            case "create":
+                permission_classes = [AllowAny]
+            case _:
+                print("check other actions")
+                permission_classes = [IsAdminOrOwner]
         return [permission() for permission in permission_classes]
 
 
