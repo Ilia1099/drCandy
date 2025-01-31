@@ -1,0 +1,46 @@
+
+volumes:
+  dr_candy_prod:
+  dr_candy_dev:
+  dr_candy_test:
+
+services:
+#  prod_db:
+#    container_name: dr_candy_prod_db
+#    image: postgres:16-bullseye
+#    ports:
+#      - "5437:5432"
+#    env_file:
+#      - .env
+#    networks:
+#      - dr-candy-network
+#    environment:
+#      - POSTGRES_USER=${DB_USER}
+#      - POSTGRES_PASSWORD=${DB_PASSWORD}
+#      - POSTGRES_NAME=${DB_NAME}
+#    command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
+#    volumes:
+#      - dr_candy_prod:/var/lib/postgresql/data
+
+  test_db:
+    container_name: dr_candy_test_db
+    image: postgres:16-bullseye
+    ports:
+      - "5439:5432"
+    env_file:
+      - .env.test
+    networks:
+      - dr-candy-network
+    environment:
+      - DB_PORT=5432
+      - POSTGRES_USER=test_db_admin
+      - POSTGRES_PASSWORD=M@ndragor3
+      - POSTGRES_NAME=dr_candy_test_db
+    command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
+    volumes:
+      - dr_candy_test:/var/lib/postgresql/data
+
+
+networks:
+  dr-candy-network:
+    driver: bridge
