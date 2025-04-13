@@ -21,7 +21,6 @@ class UsersViewSet(viewsets.ModelViewSet):
             case "create":
                 permission_classes = [AllowAny]
             case _:
-                print("check other actions")
                 permission_classes = [IsAdminOrOwner]
         return [permission() for permission in permission_classes]
 

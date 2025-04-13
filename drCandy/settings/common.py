@@ -86,7 +86,6 @@ DATABASES = {
         "PORT": os.environ.get('POSTGRES_PORT'),
     }
 }
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
