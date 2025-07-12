@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserChangeForm, UsernameField
 from django import forms
-from .models import User, CustomerProfile, mobile_number_validator
+from .models import User, CustomerProfile
+from .validators import mobile_number_validator
 
 
 class CustomUserChangeForm(UserChangeForm):

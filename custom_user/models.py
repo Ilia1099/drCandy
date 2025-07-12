@@ -1,13 +1,8 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from custom_user.model_managers.customers_manager import UserManager
 from django.conf import settings
-
-
-def mobile_number_validator(value):
-    if len(value) != 10:
-        raise ValidationError("Mobile Number must be 10 digits long")
+from .validators import mobile_number_validator
 
 
 class User(AbstractUser):
